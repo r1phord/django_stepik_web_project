@@ -1,3 +1,6 @@
 .idea/
 venv/
 db.sqlite3
+stepik_tours/__pycache__/
+tours/__pycache__/
+tours/migrations/__pycache__/
