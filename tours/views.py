@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.views import View
+from django.http import HttpResponse, HttpResponseNotFound
 
+
+def custom_handler404(request, exception):
+    return HttpResponseNotFound('Страница не найдена. Ошибка в запросе')
 
 class MainView(View):
     def get(self, request):
