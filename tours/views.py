@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from django.views import View
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponseServerError
 
 
 def custom_handler404(request, exception):
-    return HttpResponseNotFound('Страница не найдена. Ошибка в запросе')
+    return HttpResponseNotFound('Страница не найдена.')
+
+
+def custom_handler500(request):
+    return HttpResponseServerError('Ошибка сервера.')
 
 
 class MainView(View):
