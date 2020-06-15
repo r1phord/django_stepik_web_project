@@ -19,7 +19,7 @@ class MainView(View):
 
 
 class DepartureView(View):
-    def get(self, request, departure='anywhere'):
+    def get(self, request, departure):
         return render(
             request, 'tours/departure.html', context={
                 'departure': departure,
@@ -28,7 +28,7 @@ class DepartureView(View):
 
 
 class TourView(View):
-    def get(self, request, id=0):
+    def get(self, request, id):
         return render(
             request, 'tours/tour.html', context={
                 'id': id,
