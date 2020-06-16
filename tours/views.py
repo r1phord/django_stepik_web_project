@@ -2,6 +2,8 @@ from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.shortcuts import render
 from django.views import View
 
+from data import tours, departures
+
 
 def custom_handler404(request, exception):
     return HttpResponseNotFound('Страница не найдена.')
@@ -29,8 +31,12 @@ class DepartureView(View):
 
 class TourView(View):
     def get(self, request, id):
+        tour = tours.get(id)
         return render(
             request, 'tours/tour.html', context={
                 'id': id,
+                'tour': tour,
+                'stars': '★' * int(tour['stars']),
+                'dep': departures.get(tour['departure'])
             }
         )
