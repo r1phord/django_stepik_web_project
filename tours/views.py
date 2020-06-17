@@ -1,3 +1,5 @@
+from random import sample
+
 from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.shortcuts import render
 from django.views import View
@@ -15,16 +17,24 @@ def custom_handler500(request):
 
 class MainView(View):
     def get(self, request):
+        random_keys = sample(tours.keys(), 6)
+        random_tours = {key: tours.get(key) for key in random_keys}
         return render(
-            request, 'tours/index.html'
+            request, 'tours/index.html', context={
+                'tours': random_tours
+            }
         )
 
 
 class DepartureView(View):
     def get(self, request, departure):
+        print('=' * 10)
+        departure_tours = {key: value for key, value in tours.items() if value['departure'] == departure}
+        print('-' * 10)
         return render(
             request, 'tours/departure.html', context={
-                'departure': departure,
+                'departure': departures.get(departure),
+                'tours': departure_tours
             }
         )
 
