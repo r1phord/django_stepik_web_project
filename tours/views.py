@@ -28,13 +28,25 @@ class MainView(View):
 
 class DepartureView(View):
     def get(self, request, departure):
-        print('=' * 10)
-        departure_tours = {key: value for key, value in tours.items() if value['departure'] == departure}
-        print('-' * 10)
+        departure_tours = {}
+        prices = []
+        nights = []
+
+        for idx, tour in tours.items():
+            if tour['departure'] == departure:
+                departure_tours[idx] = tour
+                prices.append(int(tour['price']))
+                nights.append(int(tour['nights']))
+
+        min_max_prices = {'min': min(prices), 'max': max(prices)}
+        min_max_nights = {'min': min(nights), 'max': max(nights)}
+
         return render(
             request, 'tours/departure.html', context={
                 'departure': departures.get(departure),
-                'tours': departure_tours
+                'tours': departure_tours,
+                'min_max_prices': min_max_prices,
+                'min_max_nights': min_max_nights,
             }
         )
 
